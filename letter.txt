@@ -1,87 +1,196 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <title>I'm Sorry ❤️</title>
 
 <style>
 body{
     margin:0;
-    padding:0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg,#ff9a9e,#fad0c4);
     height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    text-align:center;
+    font-family:Arial;
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+    overflow:hidden;
 }
 
-.container{
-    background:white;
-    padding:40px;
-    border-radius:15px;
-    width:400px;
-    box-shadow:0 10px 20px rgba(0,0,0,0.2);
-}
-
-h1{
-    color:#e91e63;
-}
-
-p{
-    font-size:18px;
-    line-height:1.6;
-}
-
-button{
-    margin-top:20px;
-    padding:12px 25px;
-    font-size:16px;
+/* Open Letter Button */
+#openBtn{
+    padding:20px 40px;
+    font-size:24px;
     border:none;
-    border-radius:25px;
+    border-radius:15px;
     background:#e91e63;
     color:white;
     cursor:pointer;
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
 }
 
-button:hover{
-    background:#c2185b;
+/* Letter box */
+.popup{
+    width:500px;
+    background:white;
+    padding:40px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,0.25);
+    position:relative;
+    display:none;
 }
+
+/* Letter text */
+h2{
+    color:#e91e63;
+}
+
+.buttons{
+    margin-top:25px;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    position:relative;
+    height:80px;
+}
+
+button{
+    padding:12px 28px;
+    font-size:16px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+}
+
+.yes{
+    background:#4CAF50;
+    color:white;
+}
+
+.no{
+    background:#f44336;
+    color:white;
+}
+
+/* Full screen overlay */
+#overlay{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.4);
+    z-index:10;
+}
+
+/* Love message */
+#loveMessage{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    font-size:42px;
+    font-weight:bold;
+    color:#e91e63;
+    background:white;
+    padding:40px 70px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* Confetti petals */
+.confetti{
+    position:absolute;
+    width:15px;
+    height:15px;
+    background:radial-gradient(circle, #ff69b4, #ffb6c1);
+    border-radius:50%;
+    pointer-events:none;
+    animation:fall linear infinite;
+}
+
+@keyframes fall{
+    0%{transform:translateY(-20px) rotate(0deg);}
+    100%{transform:translateY(100vh) rotate(360deg);}
+}
+
 </style>
-
 </head>
 
 <body>
 
-<div class="container">
+<!-- Open letter button -->
+<button id="openBtn" onclick="openLetter()">Open This Letter ✉️</button>
 
-<h1>I'm Sorry 💔</h1>
+<!-- Letter popup -->
+<div class="popup" id="letter">
+<h2>I'm Sorry ❤️</h2>
+<p>Sorry baby ko, bati na tayo pleaseeee, love na love kita, pasaensya na baby ko.</p>
+<p>Sana mapatawad mo 'ko at magbati na tayo.</p>
 
-<p>
-I know I made a mistake, and I truly regret it.
-You mean so much to me and hurting you was never my intention.
-</p>
+<h3>Bati na tayo?</h3>
+<div class="buttons" id="btnArea">
+<button class="yes" onclick="showLove()">YES</button>
+<button class="no" id="noBtn" onclick="moveNo()">NO</button>
+</div>
+</div>
 
-<p>
-Please know that I care about you deeply and I value every moment we share.
-</p>
-
-<h2>I Love You ❤️</h2>
-
-<p>
-No matter what happens, my feelings for you are real and sincere.
-</p>
-
-<button onclick="showMessage()">Click Here</button>
-
-<p id="message"></p>
-
+<!-- Overlay with message -->
+<div id="overlay">
+<div id="loveMessage">I LOVE YOU ❤️</div>
 </div>
 
 <script>
-function showMessage(){
-document.getElementById("message").innerHTML =
-"I’m really sorry... and I love you more than words can explain ❤️";
+// Open letter
+function openLetter(){
+    document.getElementById("openBtn").style.display="none";
+    document.getElementById("letter").style.display="block";
+    createConfettiLoop(40); // start looping confetti
+}
+
+// Love message
+function showLove(){
+    document.getElementById("overlay").style.display="block";
+}
+
+// Move NO button
+function moveNo(){
+    const btn = document.getElementById("noBtn");
+    const area = document.getElementById("btnArea");
+    btn.style.position="absolute";
+
+    const maxX = area.clientWidth - btn.offsetWidth;
+    const maxY = area.clientHeight - btn.offsetHeight;
+
+    const x = Math.random()*maxX;
+    const y = Math.random()*maxY;
+
+    btn.style.left = x + "px";
+    btn.style.top = y + "px";
+}
+
+// Confetti effect loop
+function createConfettiLoop(count){
+    for(let i=0;i<count;i++){
+        spawnConfetti();
+    }
+
+    // keep spawning continuously
+    setInterval(spawnConfetti, 500);
+}
+
+function spawnConfetti(){
+    const confetti = document.createElement("div");
+    confetti.classList.add("confetti");
+    confetti.style.left = Math.random()*window.innerWidth + "px";
+    confetti.style.top = "-20px"; // start from top
+    confetti.style.animationDuration = 3 + Math.random()*3 + "s";
+    confetti.style.width = 10 + Math.random()*10 + "px";
+    confetti.style.height = 10 + Math.random()*10 + "px";
+    document.body.appendChild(confetti);
+
+    setTimeout(()=>{ confetti.remove(); },6000);
 }
 </script>
 
