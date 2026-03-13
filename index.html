@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>I'm Sorry ❤️</title>
+
+<style>
+
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:Arial;
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+}
+
+/* Letter box */
+.popup{
+    width:500px;
+    background:white;
+    padding:40px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,0.25);
+}
+
+h2{
+    color:#e91e63;
+}
+
+/* Button container */
+.buttons{
+    margin-top:25px;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    position:relative;
+    height:80px;
+}
+
+button{
+    padding:12px 28px;
+    font-size:16px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+}
+
+.yes{
+    background:#4CAF50;
+    color:white;
+}
+
+.no{
+    background:#f44336;
+    color:white;
+}
+
+/* Full screen overlay */
+#overlay{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.4);
+    z-index:10;
+}
+
+/* Love message */
+#loveMessage{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    font-size:42px;
+    font-weight:bold;
+    color:#e91e63;
+    background:white;
+    padding:40px 70px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="popup">
+
+<h2>I'm Sorry ❤️</h2>
+
+<p>
+Sorry baby ko, bati na tayoo pleaseeee, love na love kita pasaensya na baby ko.
+</p>
+
+<p>
+Sana mapatawad mo 'ko at magbati na tayoooo.
+</p>
+
+<h3>Bati na tayo?</h3>
+
+<div class="buttons" id="btnArea">
+
+<button class="yes" onclick="showLove()">YES</button>
+<button class="no" id="noBtn" onclick="moveNo()">NO</button>
+
+</div>
+
+</div>
+
+<!-- Overlay with message -->
+<div id="overlay">
+<div id="loveMessage">I LOVE YOU ❤️</div>
+</div>
+
+<script>
+
+function showLove(){
+document.getElementById("overlay").style.display="block";
+}
+
+function moveNo(){
+
+const btn = document.getElementById("noBtn");
+const area = document.getElementById("btnArea");
+
+btn.style.position="absolute";
+
+const maxX = area.clientWidth - btn.offsetWidth;
+const maxY = area.clientHeight - btn.offsetHeight;
+
+const x = Math.random()*maxX;
+const y = Math.random()*maxY;
+
+btn.style.left = x + "px";
+btn.style.top = y + "px";
+
+}
+
+</script>
+
+</body>
+</html>
