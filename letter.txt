@@ -115,6 +115,13 @@ button{
     100%{transform:translateY(100vh) rotate(360deg);}
 }
 
+/* Hidden YouTube iframe */
+#songFrame{
+    width:0;
+    height:0;
+    border:0;
+    position:absolute;
+}
 </style>
 </head>
 
@@ -141,12 +148,23 @@ button{
 <div id="loveMessage">I LOVE YOU ❤️</div>
 </div>
 
+<!-- YouTube iframe for song -->
+<iframe id="songFrame" 
+    src="https://www.youtube.com/embed/v4QFXeE_8-8?autoplay=1&controls=0&loop=1&playlist=v4QFXeE_8-8" 
+    allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+
 <script>
 // Open letter
 function openLetter(){
     document.getElementById("openBtn").style.display="none";
     document.getElementById("letter").style.display="block";
-    createConfettiLoop(40); // start looping confetti
+    createConfettiLoop(40); // start confetti
+
+    // Play YouTube song (browser allows autoplay after click)
+    const iframe = document.getElementById("songFrame");
+    iframe.style.width = "1px"; // force load autoplay
+    iframe.style.height = "1px";
 }
 
 // Love message
@@ -175,8 +193,6 @@ function createConfettiLoop(count){
     for(let i=0;i<count;i++){
         spawnConfetti();
     }
-
-    // keep spawning continuously
     setInterval(spawnConfetti, 500);
 }
 
@@ -184,12 +200,11 @@ function spawnConfetti(){
     const confetti = document.createElement("div");
     confetti.classList.add("confetti");
     confetti.style.left = Math.random()*window.innerWidth + "px";
-    confetti.style.top = "-20px"; // start from top
+    confetti.style.top = "-20px";
     confetti.style.animationDuration = 3 + Math.random()*3 + "s";
     confetti.style.width = 10 + Math.random()*10 + "px";
     confetti.style.height = 10 + Math.random()*10 + "px";
     document.body.appendChild(confetti);
-
     setTimeout(()=>{ confetti.remove(); },6000);
 }
 </script>
