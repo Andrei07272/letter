@@ -114,11 +114,13 @@ button{
     0%{transform:translateY(-20px) rotate(0deg);}
     100%{transform:translateY(100vh) rotate(360deg);}
 }
-
 </style>
 </head>
 
 <body>
+
+<!-- Audio element -->
+<audio id="loveSong" src="pagibig.mp3" preload="auto"></audio>
 
 <!-- Open letter button -->
 <button id="openBtn" onclick="openLetter()">Open This Letter ✉️</button>
@@ -147,6 +149,12 @@ function openLetter(){
     document.getElementById("openBtn").style.display="none";
     document.getElementById("letter").style.display="block";
     createConfettiLoop(40); // start looping confetti
+
+    // Play audio
+    const song = document.getElementById("loveSong");
+    song.play().catch(()=>{ 
+        console.log("User interaction required to play audio"); 
+    });
 }
 
 // Love message
@@ -175,8 +183,6 @@ function createConfettiLoop(count){
     for(let i=0;i<count;i++){
         spawnConfetti();
     }
-
-    // keep spawning continuously
     setInterval(spawnConfetti, 500);
 }
 
@@ -189,7 +195,6 @@ function spawnConfetti(){
     confetti.style.width = 10 + Math.random()*10 + "px";
     confetti.style.height = 10 + Math.random()*10 + "px";
     document.body.appendChild(confetti);
-
     setTimeout(()=>{ confetti.remove(); },6000);
 }
 </script>
